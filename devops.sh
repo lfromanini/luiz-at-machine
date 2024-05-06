@@ -17,7 +17,7 @@ function dkclean()
 }
 
 function dklog() { docker logs "${1}" ; }
-function dksh() { docker exec --interactive --tty ${@:2} "${1}" sh -c $( whereis -b bash ash sh | awk '/: ./ { print $2 ; exit }' ) ; }
+function dksh() { docker exec --interactive --tty ${@:2} "${1}" sh -c '$( which -a bash ash sh | head -n 1 )' ; }
 function dksu() { dksh "${1}" ${@:2} --user root ; }
 function dkstats() { docker ps --quiet --filter "name=${1}" | xargs docker stats --no-stream ; }
 
